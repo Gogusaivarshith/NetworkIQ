@@ -1,0 +1,37 @@
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+    padding-bottom:20px;
+    border-bottom:1px solid #ddd;
+}
+
+.navbar h2{
+    margin:0;
+    color:#1e3a8a;
+}
+
+.navbar p{
+    margin-top:5px;
+    color:#6b7280;
+}
+
+.profile{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    font-size:22px;
+}
+
+.avatar{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    background:#2563eb;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+}

@@ -1,0 +1,37 @@
+.sidebar{
+    width:240px;
+    min-height:100vh;
+    background:#111827;
+    color:white;
+    padding:25px;
+}
+
+.logo{
+    font-size:28px;
+    margin-bottom:40px;
+    color:#60a5fa;
+}
+
+.sidebar ul{
+    list-style:none;
+    padding:0;
+}
+
+.sidebar li{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    padding:14px;
+    margin-bottom:12px;
+    border-radius:10px;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.sidebar li:hover{
+    background:#1f2937;
+}
+
+.sidebar svg{
+    font-size:20px;
+}

@@ -1,0 +1,16 @@
+.kpi-card{
+    background:white;
+    border-radius:12px;
+    padding:20px;
+    box-shadow:0 5px 12px rgba(0,0,0,.12);
+}
+
+.kpi-card h3{
+    color:#666;
+    margin-bottom:12px;
+}
+
+.kpi-card h1{
+    color:#1976d2;
+    font-size:32px;
+}
