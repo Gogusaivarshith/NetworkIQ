@@ -7,6 +7,9 @@ from app.api.forecast import router as forecast_router
 from app.api.inventory import router as inventory_router
 from app.api.recommendations import router as recommendation_router
 from app.api.sales import router as sales_router
+from app.api.upload import router as upload_router
+from app.api.recommendations import router as recommendation_router
+from app.api.ai import router as ai_router
 
 
 app = FastAPI(
@@ -28,6 +31,9 @@ app.include_router(forecast_router)
 app.include_router(inventory_router)
 app.include_router(recommendation_router)
 app.include_router(sales_router)
+app.include_router(upload_router)
+app.include_router(recommendation_router)
+app.include_router(ai_router)
 
 
 @app.get("/")

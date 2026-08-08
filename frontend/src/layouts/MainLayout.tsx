@@ -1,32 +1,69 @@
-import Sidebar from "../components/Sidebar";
-import Navbar from "../components/Navbar";
+import { Outlet, Link } from "react-router-dom";
+import {
+  Box,
+  Drawer,
+  List,
+  ListItemButton,
+  ListItemText,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 
-interface Props {
-  children: React.ReactNode;
-}
+const drawerWidth = 250;
 
-const MainLayout = ({ children }: Props) => {
+export default function MainLayout() {
   return (
-    <div
-      style={{
-        display: "flex",
-        background: "#f3f4f6",
-        minHeight: "100vh",
-      }}
-    >
-      <Sidebar />
-
-      <div
-        style={{
-          flex: 1,
-          padding: "30px",
+    <Box sx={{ display: "flex" }}>
+      <Drawer
+        variant="permanent"
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
+            width: drawerWidth,
+            background: "#0f172a",
+            color: "white",
+          },
         }}
       >
-        <Navbar />
-        {children}
-      </div>
-    </div>
-  );
-};
+        <Toolbar>
+          <Typography variant="h5" fontWeight="bold">
+            🚀 NetworkIQ
+          </Typography>
+        </Toolbar>
 
-export default MainLayout;
+        <List>
+          <ListItemButton component={Link} to="/">
+            <ListItemText primary="🏠 Dashboard" />
+          </ListItemButton>
+
+          <ListItemButton component={Link} to="/sales">
+            <ListItemText primary="📈 Sales" />
+          </ListItemButton>
+
+          <ListItemButton component={Link} to="/inventory">
+            <ListItemText primary="📦 Inventory" />
+          </ListItemButton>
+
+          <ListItemButton component={Link} to="/insights">
+            <ListItemText primary="🧠 AI Insights" />
+          </ListItemButton>
+
+          <ListItemButton component={Link} to="/upload">
+            <ListItemText primary="📂 Upload" />
+          </ListItemButton>
+        </List>
+      </Drawer>
+
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          p: 4,
+        }}
+      >
+        <Outlet />
+      </Box>
+    </Box>
+  );
+}

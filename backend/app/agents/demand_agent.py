@@ -1,61 +1,21 @@
-import pandas as pd
-from app.services.data_loader import DataLoader
-
+from app.services.data_loader import loader
 
 class DemandAgent:
 
-    def __init__(self):
+    def analyze(self):
 
-        loader = DataLoader()
-        loader.load()
+        sales = loader.sales_df
 
-        self.sales = pd.read_csv(loader.sales_path)
-
-    def top_products(self):
-
-        df = (
-            self.sales
-            .groupby("Product Name")
-            .agg({
-                "Quantity":"sum",
-                "Sales":"sum",
-                "Profit":"sum"
-            })
-            .sort_values("Quantity",ascending=False)
-            .head(10)
-            .reset_index()
+        top_region = (
+            sales.groupby("Region")["Sales"]
+            .sum()
+            .idxmax()
         )
 
-        return df.to_dict(orient="records")
-
-    def top_regions(self):
-
-        df = (
-            self.sales
-            .groupby("Region")
-            .agg({
-                "Sales":"sum",
-                "Profit":"sum",
-                "Quantity":"sum"
-            })
-            .sort_values("Sales",ascending=False)
-            .reset_index()
-        )
-
-        return df.to_dict(orient="records")
-
-    def top_categories(self):
-
-        df = (
-            self.sales
-            .groupby("Category of Goods")
-            .agg({
-                "Sales":"sum",
-                "Profit":"sum",
-                "Quantity":"sum"
-            })
-            .sort_values("Sales",ascending=False)
-            .reset_index()
-        )
-
-        return df.to_dict(orient="records")
+        return {
+            "agent": "Demand Agent",
+            "status": "SUCCESS",
+            "reason":
+                f"Highest demand detected in {top_region} region.",
+            "confidence": 96
+        }

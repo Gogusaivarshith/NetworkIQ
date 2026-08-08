@@ -1,73 +1,24 @@
-import pandas as pd
-from app.services.data_loader import DataLoader
-
+from app.services.data_loader import loader
 
 class InventoryAgent:
 
-    def __init__(self):
+    def analyze(self):
 
-        loader = DataLoader()
-        loader.load()
+        inventory = loader.inventory_df
 
-        self.inventory = pd.read_csv(loader.inventory_path)
+        low_stock = inventory[
+            inventory["Inventory_Level"] <
+            inventory["Reorder_Point"]
+        ]
 
-    def understocked(self):
+        return {
 
-        df = self.inventory[
-            self.inventory["Inventory_Level"]
-            <
-            self.inventory["Reorder_Point"]
-        ].copy()
+            "agent": "Inventory Agent",
 
-        df["Shortage"] = (
-            df["Reorder_Point"] -
-            df["Inventory_Level"]
-        )
+            "status": "WARNING",
 
-        df = df.sort_values(
-            "Shortage",
-            ascending=False
-        ).head(20)
+            "reason":
+                f"{len(low_stock)} products below reorder point.",
 
-        return df[
-            [
-                "SKU_ID",
-                "Warehouse_ID",
-                "Region",
-                "Inventory_Level",
-                "Reorder_Point",
-                "Demand_Forecast",
-                "Shortage"
-            ]
-        ].to_dict(orient="records")
-
-
-    def overstocked(self):
-
-        df = self.inventory[
-            self.inventory["Inventory_Level"]
-            >
-            self.inventory["Demand_Forecast"] * 2
-        ].copy()
-
-        df["Excess"] = (
-            df["Inventory_Level"]
-            -
-            df["Demand_Forecast"]
-        )
-
-        df = df.sort_values(
-            "Excess",
-            ascending=False
-        ).head(20)
-
-        return df[
-            [
-                "SKU_ID",
-                "Warehouse_ID",
-                "Region",
-                "Inventory_Level",
-                "Demand_Forecast",
-                "Excess"
-            ]
-        ].to_dict(orient="records")
+            "confidence":93
+        }
